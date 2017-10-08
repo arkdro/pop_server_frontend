@@ -108,11 +108,13 @@ calc_year year_str =
             0
 
 
+view_validation : Model -> Html msg
 view_validation {start_year, stop_year} =
     let (color, message) = get_color_and_message start_year stop_year
     in div [ style [("color", color)] ] [ text message ]
 
 
+get_color_and_message : Int -> Int -> Validation_hint
 get_color_and_message start_year stop_year =
     case start_year <= stop_year of
         True ->
