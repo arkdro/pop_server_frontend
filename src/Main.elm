@@ -16,6 +16,9 @@ type alias Model =
     }
 
 
+type alias Validation_hint = (String, String)
+
+
 init : ( Model, Cmd Msg )
 init =
     ( {country = "", start_year = 0, stop_year = 0}, Cmd.none )
