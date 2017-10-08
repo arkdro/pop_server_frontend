@@ -1,9 +1,8 @@
 module Main exposing (..)
 
-import Html exposing (Html, text, div, img, input, br)
+import Html exposing (Html, text, div, img, input, br, button)
 import Html.Attributes exposing (..)
-import Html.Events exposing (onInput)
-
+import Html.Events exposing (onInput, onClick)
 
 ---- MODEL ----
 
@@ -30,6 +29,7 @@ init =
 type Msg
     =
       NoOp
+    | Submit
     | Country String
     | Start_year String
     | Stop_year String
@@ -48,6 +48,8 @@ update msg model =
         Stop_year str ->
             let year = calc_year str
             in ({model | stop_year = year}, Cmd.none)
+        Submit ->
+            (model, Cmd.none)
 
 
 ---- VIEW ----
@@ -64,6 +66,11 @@ view model =
          input [type_ "text", placeholder "Start year", onInput Start_year, input_style] [],
          br [] [],
          input [type_ "text", placeholder "Stop year", onInput Stop_year, input_style] [],
+         br [] [],
+         button [type_ "submit",
+                     disabled <| is_empty model.country,
+                     onClick Submit, input_style]
+             [text "Submit"],
          view_validation model
         ]
 
@@ -121,3 +128,12 @@ get_color_and_message start_year stop_year =
             ("green", "OK")
         False ->
             ("red", "Error: start is after stop")
+
+
+is_empty : String -> Bool
+is_empty str =
+    str
+        |> String.trim
+        |> String.isEmpty
+
+
