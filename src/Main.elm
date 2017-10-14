@@ -1,6 +1,6 @@
 module Main exposing (..)
 
-import Html exposing (Html, text, div, img, input, br, button)
+import Html exposing (Html, text, div, img, input, br, button, li)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput, onClick)
 import Http
@@ -78,7 +78,17 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    div []
+    let
+        page_items =
+            (page_start_items model)
+            ++ show_requested_data model
+            ++ (page_end_items model)
+    in
+        div [] page_items
+
+
+page_start_items : Model -> List (Html Msg)
+page_start_items model =
         [
          img [ src "/logo.svg" ] [],
          div [] [ text "Your Elm App is working!" ],
@@ -91,12 +101,13 @@ view model =
          button [type_ "submit",
                      disabled <| is_empty model.country,
                      onClick Submit, input_style]
-             [text "Submit"],
-         view_validation model,
-         br [] [],
-         show_requested_data model,
-         br [] []
-        ]
+             [text "Submit"]        ]
+
+page_end_items : Model -> List (Html Msg)
+page_end_items _ =
+    [
+     br [] []
+    ]
 
 
 
@@ -190,21 +201,26 @@ base_url =
     "http://localhost:8081"
 
 
-show_requested_data : Model -> Html msg
+show_requested_data : Model -> List (Html Msg)
 show_requested_data model =
     case model.countries of
         Nothing ->
-            div [ style [("color", "lightgrey")] ] [ text "data" ]
+            [
+             view_validation model,
+             br [] [],
+             div [ style [("color", "lightgrey")] ] [ text "data" ]
+            ]
         Just countries ->
             show_countries_list countries
 
 
-show_countries_list : List a -> Html msg
+show_countries_list : List String -> List (Html Msg)
 show_countries_list countries =
-    let
-        data = "len: " ++ toString (List.length countries)
-    in
-        div [ style [("color", "green")] ] [ text data ]
+    List.map one_country_div countries
 
+
+one_country_div : String -> Html Msg
+one_country_div country =
+    li [ style [("color", "green")] ] [ text country ]
 
 
