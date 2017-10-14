@@ -33,6 +33,7 @@ type Msg
     | Country String
     | Start_year String
     | Stop_year String
+    | Countries (Result Http.Error (List String))
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -49,6 +50,10 @@ update msg model =
             let year = calc_year str
             in ({model | stop_year = year}, Cmd.none)
         Submit ->
+            (model, get_countries)
+        Countries (Ok _) ->
+            (model, Cmd.none)
+        Countries (Err _) ->
             (model, Cmd.none)
 
 
@@ -135,5 +140,29 @@ is_empty str =
     str
         |> String.trim
         |> String.isEmpty
+
+
+get_countries : Cmd Msg
+get_countries =
+    let
+        url = get_countries_url
+        request = Http.get url countries_decoder
+    in
+        Http.send Countries request
+
+
+countries_decoder : Json.Decode.Decoder (List String)
+countries_decoder =
+    Json.Decode.list string
+
+
+get_countries_url : String
+get_countries_url =
+    base_url ++ "/countries"
+
+
+base_url : String
+base_url =
+    "http://localhost:8080"
 
 
