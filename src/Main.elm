@@ -3,6 +3,8 @@ module Main exposing (..)
 import Html exposing (Html, text, div, img, input, br, button)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput, onClick)
+import Http
+import Json.Decode exposing (list, string)
 
 ---- MODEL ----
 
