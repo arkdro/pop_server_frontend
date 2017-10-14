@@ -78,7 +78,8 @@ view model =
                      disabled <| is_empty model.country,
                      onClick Submit, input_style]
              [text "Submit"],
-         view_validation model
+         view_validation model,
+         show_requested_data model
         ]
 
 
@@ -166,5 +167,10 @@ get_countries_url =
 base_url : String
 base_url =
     "http://localhost:8080"
+
+
+show_requested_data : Model -> Html msg
+show_requested_data _ =
+    br [] []
 
 
