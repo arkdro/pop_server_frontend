@@ -172,7 +172,12 @@ get_countries =
 
 countries_decoder : Json.Decode.Decoder (List String)
 countries_decoder =
-    Json.Decode.list string
+    Json.Decode.list country_list_item_decoder
+
+
+country_list_item_decoder : Json.Decode.Decoder String
+country_list_item_decoder =
+    Json.Decode.field "Name" Json.Decode.string
 
 
 get_countries_url : String
