@@ -177,12 +177,12 @@ countries_decoder =
 
 get_countries_url : String
 get_countries_url =
-    base_url ++ "/countries"
+    base_url ++ "/country"
 
 
 base_url : String
 base_url =
-    "http://localhost:8080"
+    "http://localhost:8081"
 
 
 show_requested_data : Model -> Html msg
