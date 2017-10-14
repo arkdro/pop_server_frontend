@@ -34,7 +34,7 @@ empty_model =
     {country = "",
      start_year = 0,
      stop_year = 0,
-     countries = Just []}
+     countries = Nothing}
 
 ---- UPDATE ----
 
