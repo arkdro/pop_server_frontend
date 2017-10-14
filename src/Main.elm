@@ -196,7 +196,10 @@ show_requested_data model =
         [] ->
             div [ style [("color", "lightgrey")] ] [ text "data" ]
         _ ->
-            div [ style [("color", "green")] ] [ text "data" ]
+            let
+                data = "len: " ++ toString (List.length model.countries)
+            in
+                div [ style [("color", "green")] ] [ text data ]
 
 
 
