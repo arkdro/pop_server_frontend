@@ -14,7 +14,7 @@ type alias Model =
         country: String,
         start_year: Int,
         stop_year: Int,
-        countries: List String
+        countries: Maybe (List String)
     }
 
 
@@ -34,7 +34,7 @@ empty_model =
     {country = "",
      start_year = 0,
      stop_year = 0,
-     countries = []}
+     countries = Just []}
 
 ---- UPDATE ----
 
@@ -66,7 +66,7 @@ update msg model =
             (model, get_countries)
         Countries (Ok countries) ->
             let
-                new_model = {model | countries = countries}
+                new_model = {model | countries = Just countries}
             in
                 (new_model , Cmd.none)
         Countries (Err _) ->
@@ -193,13 +193,18 @@ base_url =
 show_requested_data : Model -> Html msg
 show_requested_data model =
     case model.countries of
-        [] ->
+        Nothing ->
             div [ style [("color", "lightgrey")] ] [ text "data" ]
-        _ ->
-            let
-                data = "len: " ++ toString (List.length model.countries)
-            in
-                div [ style [("color", "green")] ] [ text data ]
+        Just countries ->
+            show_countries_list countries
+
+
+show_countries_list : List a -> Html msg
+show_countries_list countries =
+    let
+        data = "len: " ++ toString (List.length countries)
+    in
+        div [ style [("color", "green")] ] [ text data ]
 
 
 
