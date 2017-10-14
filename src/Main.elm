@@ -64,8 +64,11 @@ update msg model =
             in ({model | stop_year = year}, Cmd.none)
         Submit ->
             (model, get_countries)
-        Countries (Ok _) ->
-            (model, Cmd.none)
+        Countries (Ok countries) ->
+            let
+                new_model = {model | countries = countries}
+            in
+                (new_model , Cmd.none)
         Countries (Err _) ->
             (model, Cmd.none)
 
@@ -90,7 +93,9 @@ view model =
                      onClick Submit, input_style]
              [text "Submit"],
          view_validation model,
-         show_requested_data model
+         br [] [],
+         show_requested_data model,
+         br [] []
         ]
 
 
@@ -181,7 +186,12 @@ base_url =
 
 
 show_requested_data : Model -> Html msg
-show_requested_data _ =
-    br [] []
+show_requested_data model =
+    case model.countries of
+        [] ->
+            div [ style [("color", "lightgrey")] ] [ text "data" ]
+        _ ->
+            div [ style [("color", "green")] ] [ text "data" ]
+
 
 
