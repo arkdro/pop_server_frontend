@@ -101,7 +101,8 @@ page_start_items model =
          button [type_ "submit",
                      disabled <| is_empty model.country,
                      onClick Submit, input_style]
-             [text "Submit"]        ]
+             [text "Submit"]
+        ]
 
 page_end_items : Model -> List (Html Msg)
 page_end_items _ =
