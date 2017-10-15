@@ -81,11 +81,6 @@ main =
 ---- AUXILLARY ----
 
 
-check_existence : Bool
-check_existence =
-    True
-
-
 calc_year : String -> Int
 calc_year year_str =
     case String.toInt year_str of
