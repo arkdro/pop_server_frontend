@@ -7,6 +7,7 @@ import Http
 import Json.Decode exposing (list, string)
 
 import Model exposing (Model)
+import Msg exposing (..)
 
 
 ---- MODEL ----
@@ -31,16 +32,6 @@ empty_model =
      countries = Nothing}
 
 ---- UPDATE ----
-
-
-type Msg
-    =
-      NoOp
-    | Submit
-    | Country String
-    | Start_year String
-    | Stop_year String
-    | Countries (Result Http.Error (List String))
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
