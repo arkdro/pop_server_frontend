@@ -80,14 +80,16 @@ show_requested_data : Model -> List (Html Msg)
 show_requested_data model =
     case model.countries of
         Nothing ->
-            [
-             view_validation model,
-             br [] [],
-             div [ style [("color", "lightgrey")] ] [ text "data" ]
-            ]
+            show_only_validation model
         Just countries ->
             show_countries_list countries
 
+show_only_validation model =
+    [
+     view_validation model,
+     br [] [],
+     div [ style [("color", "lightgrey")] ] [ text "data" ]
+    ]
 
 show_countries_list : List String -> List (Html Msg)
 show_countries_list countries =
