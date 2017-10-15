@@ -37,7 +37,12 @@ page_start_items model =
          button [type_ "submit",
                      disabled <| is_empty model.country,
                      onClick Submit, input_style]
-             [text "Submit"]
+             [text "Submit"],
+         text " ",
+         button [type_ "submit",
+                     disabled <| is_not_empty model.country,
+                     onClick Submit_list_of_countries, input_style]
+             [text "List of countries"]
         ]
 
 page_end_items : Model -> List (Html Msg)
@@ -60,6 +65,10 @@ is_empty str =
     str
         |> String.trim
         |> String.isEmpty
+
+
+is_not_empty : String -> Bool
+is_not_empty str = not (is_empty str)
 
 
 view_validation : Model -> Html msg

@@ -9,6 +9,7 @@ type Msg
     =
       NoOp
     | Submit
+    | Submit_list_of_countries
     | Country String
     | Start_year String
     | Stop_year String

@@ -5,6 +5,7 @@ import Html exposing (Html)
 import Model exposing (Model)
 import Msg exposing (..)
 import Sig exposing (..)
+import Countries exposing (get_countries)
 import Country exposing (get_country_data)
 import View exposing (..)
 
@@ -38,6 +39,8 @@ update msg model =
             in ({model | stop_year = year}, Cmd.none)
         Submit ->
             (model, Country.get_country_data model)
+        Submit_list_of_countries ->
+            (model, Countries.get_countries)
         Country_data (Ok data) ->
             let
                 new_model = {model | country_data = Just data,
