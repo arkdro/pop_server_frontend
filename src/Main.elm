@@ -6,16 +6,10 @@ import Html.Events exposing (onInput, onClick)
 import Http
 import Json.Decode exposing (list, string)
 
+import Model exposing (Model)
+
+
 ---- MODEL ----
-
-
-type alias Model =
-    {
-        country: String,
-        start_year: Int,
-        stop_year: Int,
-        countries: Maybe (List String)
-    }
 
 
 type alias Validation_hint = (String, String)
