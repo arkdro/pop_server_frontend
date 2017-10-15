@@ -19,17 +19,10 @@ type alias Validation_hint = (String, String)
 init : ( Model, Cmd Msg )
 init =
     let
-        model = (empty_model)
+        model = (Model.empty_model)
     in
         (model, Cmd.none)
 
-
-empty_model : Model
-empty_model =
-    {country = "",
-     start_year = 0,
-     stop_year = 0,
-     countries = Nothing}
 
 ---- UPDATE ----
 
