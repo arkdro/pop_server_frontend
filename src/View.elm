@@ -6,6 +6,7 @@ import Html.Events exposing (onInput, onClick)
 
 import Model exposing (..)
 import Msg exposing (..)
+import Sig exposing (..)
 
 
 type alias Validation_hint = (String, String)
@@ -78,11 +79,22 @@ get_color_and_message start_year stop_year =
 
 show_requested_data : Model -> List (Html Msg)
 show_requested_data model =
-    case model.countries of
-        Nothing ->
+    case model.cmd of
+        None ->
             show_only_validation model
-        Just countries ->
-            show_countries_list countries
+        List_of_countries ->
+            case model.countries of
+                Nothing ->
+                    show_only_validation model
+                Just countries ->
+                    show_countries_list countries
+        Data_of_country ->
+            case model.country_data of
+                Nothing ->
+                    show_only_validation model
+                Just data ->
+                    show_country_data data
+
 
 show_only_validation model =
     [
@@ -99,5 +111,19 @@ show_countries_list countries =
 one_country_div : String -> Html Msg
 one_country_div country =
     li [ style [("color", "green")] ] [ text country ]
+
+
+show_country_data data =
+    List.map one_country_data_div data
+
+
+one_country_data_div {year, value} =
+    let
+        data = toString(year) ++ ", " ++ toString(value)
+    in
+        div [ style [("color", "blue")] ] [ text data ]
+
+
+
 
 

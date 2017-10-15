@@ -6,6 +6,7 @@ import Json.Decode exposing (list, string)
 
 import Model exposing (Model)
 import Msg exposing (..)
+import Sig exposing (..)
 import Country exposing (get_country_data)
 import View exposing (..)
 
@@ -41,7 +42,8 @@ update msg model =
             (model, Country.get_country_data model)
         Country_data (Ok data) ->
             let
-                new_model = {model | country_data = Just data}
+                new_model = {model | country_data = Just data,
+                                 cmd = Data_of_country}
             in
                 (new_model , Cmd.none)
         Country_data (Err err) ->
@@ -49,7 +51,8 @@ update msg model =
             (model, Cmd.none)
         Countries (Ok countries) ->
             let
-                new_model = {model | countries = Just countries}
+                new_model = {model | countries = Just countries,
+                                 cmd = List_of_countries}
             in
                 (new_model , Cmd.none)
         Countries (Err err) ->
