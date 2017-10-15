@@ -69,7 +69,8 @@ update msg model =
                 new_model = {model | countries = Just countries}
             in
                 (new_model , Cmd.none)
-        Countries (Err _) ->
+        Countries (Err err) ->
+            let _ = Debug.log "update, countries, error" err in
             (model, Cmd.none)
 
 
