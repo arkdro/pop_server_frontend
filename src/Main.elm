@@ -9,7 +9,7 @@ import Country exposing (get_country_data)
 import View exposing (..)
 
 
----- MODEL ----
+---- INIT ----
 
 
 init : ( Model, Cmd Msg )
@@ -56,10 +56,6 @@ update msg model =
         Countries (Err err) ->
             let _ = Debug.log "update, countries, error" err in
             (model, Cmd.none)
-
-
----- VIEW ----
-
 
 
 ---- PROGRAM ----
