@@ -8,6 +8,7 @@ import Json.Decode exposing (list, string)
 
 import Model exposing (Model)
 import Msg exposing (..)
+import Country exposing (get_country_data)
 
 
 ---- MODEL ----
@@ -41,7 +42,15 @@ update msg model =
             let year = calc_year str
             in ({model | stop_year = year}, Cmd.none)
         Submit ->
-            (model, get_countries)
+            (model, Country.get_country_data model)
+        Country_data (Ok data) ->
+            let
+                new_model = {model | country_data = Just data}
+            in
+                (new_model , Cmd.none)
+        Country_data (Err err) ->
+            let _ = Debug.log "update, country data, error" err in
+            (model, Cmd.none)
         Countries (Ok countries) ->
             let
                 new_model = {model | countries = Just countries}

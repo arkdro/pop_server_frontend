@@ -2,6 +2,8 @@ module Msg exposing (..)
 
 import Http
 
+import Model exposing (Country_item)
+
 
 type Msg
     =
@@ -11,5 +13,6 @@ type Msg
     | Start_year String
     | Stop_year String
     | Countries (Result Http.Error (List String))
+    | Country_data (Result Http.Error (List Model.Country_item))
 
 

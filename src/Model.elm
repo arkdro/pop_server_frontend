@@ -1,4 +1,4 @@
-module Model exposing (Model, empty_model)
+module Model exposing (Model, Country_item, empty_model)
 
 
 type alias Model =
@@ -6,8 +6,17 @@ type alias Model =
         country: String,
         start_year: Int,
         stop_year: Int,
-        countries: Maybe (List String)
+        countries: Maybe (List String),
+        country_data: Maybe (List Country_item)
     }
+
+
+type alias Country_item =
+    {
+        year: Int,
+        value: Float
+    }
+
 
 empty_model : Model
 empty_model =
